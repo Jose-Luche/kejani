@@ -16,6 +16,7 @@ class CreateProjectionsTable extends Migration
         Schema::create('projections', function (Blueprint $table) {
             $table->id();
             $table->integer('branch_id')->nullable();
+            $table->integer('type')->nullable();
             $table->integer('tenant_id')->nullable();
             $table->integer('fee_category_id')->nullable();
             $table->date('date')->nullable();

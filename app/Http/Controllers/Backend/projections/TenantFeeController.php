@@ -34,6 +34,7 @@ class TenantFeeController extends Controller
         $branch_id = $request->branch_id;
         //$unit_category_id = $request->unit_category_id;
         $type = $request->type;
+        
         $fee_category_id = $request->fee_category_id;
         //if ($type == "rent") {
         //$fee_category_id = null;
@@ -88,6 +89,8 @@ class TenantFeeController extends Controller
 
                 $html[$key]['tdsource'] .= '<td>' . '<input
                 type="text" name="amount[]" value=" ' . $regfee->amount . ' " class="form-control" >' . '</td>';
+                
+
             } else {
                 $html[$key]['tdsource'] .= '<td>' . $regfee->rent . '<input
                 type="hidden" name="date" value=" ' . $date . ' ">' . '</td>';

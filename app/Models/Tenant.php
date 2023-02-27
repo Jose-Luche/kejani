@@ -32,7 +32,33 @@ class Tenant extends Model
 
     public static function getTenants()
     {
-        $data = DB::table('tenants')->select('name', 'mobile', 'email', 'branch_id', 'unit_id')->get()->toArray();
+        //$data = DB::table('tenants')->select('name', 'mobile', 'email', 'branch_id', 'unit_id')->get()->toArray();
+        $tenants = Tenant::all();
+        $data = [];
+        foreach ($tenants as $row) {
+            $name = $row->name;
+            $mobile = $row->mobile;
+            $email = $row->email;
+
+            $unit = "-";
+            if($row->unit != null){
+                $unit = $row->unit->name;
+            }
+
+            $apartment = "-";
+            if($row->apartment != null){
+                $apartment = $row->apartment->name;
+            }
+            $data[]= [
+                "name" => $name,
+                "mobile" => $mobile,
+                "email" => $email,
+                "unit" => $unit,
+                "apartment" => $apartment,
+
+            ];
+        }
+
         return $data;
     }
 }

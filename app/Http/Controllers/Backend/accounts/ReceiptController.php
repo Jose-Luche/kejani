@@ -30,7 +30,7 @@ class ReceiptController extends Controller
         $data['branches'] = Branch::all();
         $data['units'] = Unit::all();
         $data['fee_categories'] = FeeCategory::all();
-        $data['ledgers'] = Ledger::all();
+        $data['ledgers'] = Ledger::where('accType','Bank')->get();
 
         return view('backend.account.receipts.addReceipt', $data);
     }
@@ -42,7 +42,7 @@ class ReceiptController extends Controller
 
         $tenant = (new TenantController)->tenDetails($payment->id);
 
-        $accounts = Ledger::all();
+        $accounts = Ledger::where('accType','Bank')->get();
 
         $bills = [];
         if ($tenant->bills != null) {

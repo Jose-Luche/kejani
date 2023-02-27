@@ -23,20 +23,33 @@ class LedgerController extends Controller
     {
         $ledger = new Ledger();
         $ledger->accType = $request->accType;
-        $ledger->accSubType = $request->accSubType;
+        $subType = null;
+        if ($request->accType == "Expenses") {
+            $subType = $request->accSubType ?? "empty";
+        } 
+
+        $ledger->accSubType = $subType;
         $ledger->accName = $request->accName;
         $ledger->accNo = $request->accNo;
         $ledger->narration = $request->narration;
         $ledger->openBalance = $request->openBalance;
-        $ledger->regDate = date('Y-m-d', strtotime($request->regDate));
+        $ledger->regDate = $request->regDate;
 
-        $ledger->save();
+        if($subType != "empty") {
+            $ledger->save();
+            $notification = array(
+                'message' => 'Account Created successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('ledger.view')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Select Account Subtype',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('ledger.add')->with($notification);
+        }
 
-        $notification = array(
-            'message' => 'Account Created successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('ledger.view')->with($notification);
+        
     }
 }

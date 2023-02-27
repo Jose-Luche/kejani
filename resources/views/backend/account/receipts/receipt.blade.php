@@ -172,12 +172,21 @@
 				</tr>
 				@if($receipt->receiptAllocations)
 					@foreach ($receipt->receiptAllocations as $row)
-						<tr class="item">
+						@if($row->projections != null)
+							<tr class="item">
 
-                            <td>{{$row->projId}}</td>
-				
-							<td>{{$row->amount}}</td>
-						</tr>
+							
+								<td>
+									{{$row->projections->type}}
+									@if($row->projections->type == "rent")
+										Rent
+									@endif
+								</td>
+					
+								<td>{{$row->amount}}</td>
+							</tr>			
+						@endif
+						
 					@endforeach
 				@endif
 

@@ -34,6 +34,7 @@
                                                         <option value="Bank">Bank</option>
                                                         <option value="Current Assets">Current Assets</option>
                                                         <option value="Current Liabilities">Current Liabilities</option>
+                                                        <option value="Expenses">Expenses</option>
                                                         <option value="Equity">Equity</option>
                                                         <option value="Income">Income</option>
                                                         <option value="Investments">Investments</option>
@@ -47,14 +48,17 @@
                                         </div>   
                                         
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" id="subType-div" style="display:none">
                                             <div class="form-group">
                                                 <h5>Account Subtype <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="accSubType"  class="form-control" > 
-                                                    @error('name')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                    <select name="accSubType" id="subAccType" class="form-control">
+                                                        <option value="" >Select Type</option>
+                                                        <option value="Admin">Administrative Costs</option>
+                                                        <option value="Finance">Finance Costs</option>
+                                                        <option value="Marketing">Marketing Costs</option>
+                                                        <option value="Depreciation">Depreciation Costs</option>                                                   
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,6 +159,15 @@
                 }
                 reader.readAsDataURL(e.target.files['0']);
             });
+        });
+
+        $('#accType').on('change',function(){
+            var type = $(this).val();
+            if(type == 'Expenses'){
+                $('#subType-div').show();
+            }else {
+                $('#subType-div').hide();
+            }
         });
     </script>
 @endsection
